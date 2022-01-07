@@ -14,6 +14,7 @@ class Image(models.Model):
     title = models.CharField(max_length=100)
     number = models.IntegerField()
     image = models.ImageField(upload_to='place_images')
+    place = models.ForeignKey(Place, on_delete=models.CASCADE, null=True, related_name='images')
 
     def __str__(self):
         return f'{self.number} {self.title}'

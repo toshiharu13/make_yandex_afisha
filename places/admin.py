@@ -2,9 +2,14 @@ from django.contrib import admin
 from .models import Place, Image
 
 
-#class ImageAdmin(Images):
+class ImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'place')
 
 
-admin.site.register(Place)
-admin.site.register(Image)
+class PlaceAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title',)
+
+
+admin.site.register(Place, PlaceAdmin)
+admin.site.register(Image, ImageAdmin)
 
