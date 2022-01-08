@@ -1,14 +1,16 @@
 from django.shortcuts import render
 from places.models import Place
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 
 
 def index(request):
-    place_data_2 = {
+    place_data = {
         "type": "FeatureCollection",
         "features": []}
     all_places = Place.objects.all()
     for place in all_places:
-        place_data_2['features'].append(
+        place_data['features'].append(
             {
                 "type": "Feature",
                 "geometry": {
@@ -24,6 +26,11 @@ def index(request):
         )
 
     context = {
-        'all_places': place_data_2,
+        'all_places': place_data,
     }
     return render(request, 'index.html', context)
+
+def places(request, place_id):
+    need_place = get_object_or_404(Place, pk=place_id)
+    return HttpResponse(need_place.title)
+
