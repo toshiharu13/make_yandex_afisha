@@ -2,6 +2,7 @@ from django.shortcuts import render
 from places.models import Place
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
 
 
 def index(request):
@@ -31,6 +32,6 @@ def index(request):
     return render(request, 'index.html', context)
 
 def places(request, place_id):
-    need_place = get_object_or_404(Place, pk=place_id)
-    return HttpResponse(need_place.title)
+    need_place = Place.objects.filter(pk=place_id).values()
+    return JsonResponse({"place": list(need_place)})
 
