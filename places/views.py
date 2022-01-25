@@ -2,6 +2,7 @@ from django.shortcuts import render
 from places.models import Place
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
+from django.core import serializers
 from django.http import JsonResponse
 
 
@@ -31,7 +32,13 @@ def index(request):
     }
     return render(request, 'index.html', context)
 
-def places(request, place_id):
-    need_place = Place.objects.filter(pk=place_id).values()
-    return JsonResponse({"place": list(need_place)})
 
+def places(request, place_id):
+    need_place = Place.objects.filter(pk=place_id)
+    json_out = serializers.serialize(
+        'json',
+        list(need_place),
+        fields=('title', 'images', 'description_short', 'description_long',
+                'lng', 'lat'),
+        indent=2,)
+    return HttpResponse(json_out, content_type="application/json")

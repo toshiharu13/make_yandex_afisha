@@ -1,4 +1,5 @@
 from django.db import models
+from where_to_go.settings import MEDIA_URL
 
 class Place(models.Model):
     title = models.CharField('Название', max_length=100)
@@ -16,8 +17,12 @@ class Image(models.Model):
     image = models.ImageField(upload_to='place_images')
     place = models.ForeignKey(Place, on_delete=models.CASCADE, null=True, related_name='images')
 
+    @property
+    def get_absolute_image_url(self):
+        return '%s%s' % (MEDIA_URL, self.image.url)
+
     def __str__(self):
-        return f'{self.number} {self.title}'
+        return f'{self.get_absolute_image_url}'
 
     class Meta:
         ordering = ['title', 'number']
