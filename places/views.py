@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.core import serializers
 from django.http import JsonResponse
+from django.urls import reverse
 
 
 def index(request):
@@ -22,7 +23,7 @@ def index(request):
                 "properties": {
                     "title": place.title,
                     "placeId": place.pk,
-                    "detailsUrl": "./static/places/moscow_legends.json"
+                    "detailsUrl": reverse('place', args=[place.pk])
                 }
             },
         )
@@ -39,7 +40,7 @@ def places(request, place_id):
     need_place_json = list(need_place.values())
     need_place_json[0]['imgs'] = need_place_images
     return JsonResponse(
-        need_place_json,
+        need_place_json[0],
         safe=False,
         json_dumps_params={'indent': 2, 'ensure_ascii': False})
 

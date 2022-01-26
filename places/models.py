@@ -19,7 +19,7 @@ class Image(models.Model):
 
     @property
     def get_absolute_image_url(self):
-        return '%s%s' % (MEDIA_URL, self.image.url)
+        return self.image.url
 
     def __str__(self):
         return f'{self.get_absolute_image_url}'
