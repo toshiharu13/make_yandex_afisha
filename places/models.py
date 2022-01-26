@@ -1,10 +1,11 @@
 from django.db import models
 from where_to_go.settings import MEDIA_URL
+from tinymce.models import HTMLField
 
 class Place(models.Model):
     title = models.CharField('Название', max_length=100)
     description_short = models.TextField('Короткое описание', blank=True)
-    description_long = models.TextField('Полное описание')
+    description_long = HTMLField('Полное описание')
     lng = models.FloatField('Долгота')
     lat = models.FloatField('Широта')
 
