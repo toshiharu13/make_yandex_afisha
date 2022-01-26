@@ -11,9 +11,12 @@ class Place(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        ordering = ['pk']
+
 class Image(models.Model):
     title = models.CharField(max_length=100)
-    number = models.IntegerField()
+    number = models.IntegerField(default=0)
     image = models.ImageField(upload_to='place_images')
     place = models.ForeignKey(Place, on_delete=models.CASCADE, null=True, related_name='images')
 
