@@ -35,10 +35,11 @@ def index(request):
 
 def places(request, place_id):
     need_place = Place.objects.filter(pk=place_id)
-    json_out = serializers.serialize(
-        'json',
-        list(need_place),
-        fields=('title', 'images', 'description_short', 'description_long',
-                'lng', 'lat'),
-        indent=2,)
-    return HttpResponse(json_out, content_type="application/json")
+    need_place_images = [str(image) for image in need_place.first().images.all()]
+    need_place_json = list(need_place.values())
+    need_place_json[0]['imgs'] = need_place_images
+    return JsonResponse(
+        need_place_json,
+        safe=False,
+        json_dumps_params={'indent': 2, 'ensure_ascii': False})
+
