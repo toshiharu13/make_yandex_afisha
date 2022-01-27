@@ -1,8 +1,8 @@
+from adminsortable2.admin import SortableAdminMixin, SortableInlineAdminMixin
 from django.contrib import admin
-from .models import Place, Image
 from django.utils.safestring import mark_safe
-from adminsortable2.admin import SortableAdminMixin
-from adminsortable2.admin import SortableInlineAdminMixin
+
+from .models import Image, Place
 
 
 class ImageEdit(SortableInlineAdminMixin, admin.TabularInline):

@@ -1,6 +1,8 @@
 from django.db import models
-from where_to_go.settings import MEDIA_URL
 from tinymce.models import HTMLField
+
+from where_to_go.settings import MEDIA_URL
+
 
 class Place(models.Model):
     title = models.CharField('Название', max_length=100)
