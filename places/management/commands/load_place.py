@@ -18,9 +18,7 @@ class Command(BaseCommand):
         response = requests.get(options["way_to"])
         response.raise_for_status()
         response_json = response.json()
-        print(response_json)
         try:
-            #print(options['way_to'])
             object_from_json = Place.objects.get_or_create(
                 title=response_json['title'],
                 description_short=response_json['description_short'],
