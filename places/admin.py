@@ -26,6 +26,4 @@ class ImageAdmin(SortableAdminMixin, admin.ModelAdmin):
 @admin.register(Place)
 class PlaceAdmin(admin.ModelAdmin):
     list_display = ('id', 'title',)
-    inlines = [ImageEdit,]
-
-
+    inlines = [ImageEdit]

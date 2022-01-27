@@ -1,8 +1,6 @@
 from django.db import models
 from tinymce.models import HTMLField
 
-from where_to_go.settings import MEDIA_URL
-
 
 class Place(models.Model):
     title = models.CharField('Название', max_length=100)
@@ -21,7 +19,11 @@ class Image(models.Model):
     title = models.CharField(max_length=100)
     number = models.IntegerField(default=0)
     image = models.ImageField(upload_to='place_images')
-    place = models.ForeignKey(Place, on_delete=models.CASCADE, null=True, related_name='images')
+    place = models.ForeignKey(
+        Place,
+        on_delete=models.CASCADE,
+        null=True,
+        related_name='images')
 
     @property
     def get_absolute_image_url(self):

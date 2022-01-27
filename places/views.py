@@ -1,6 +1,4 @@
-from django.core import serializers
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 
 from places.models import Place
@@ -35,7 +33,8 @@ def index(request):
 
 def places(request, place_id):
     need_place = Place.objects.filter(pk=place_id)
-    need_place_images = [str(image) for image in need_place.first().images.all()]
+    need_place_images = [
+        str(image) for image in need_place.first().images.all()]
     need_place_json = list(need_place.values())
     need_place_json[0]['imgs'] = need_place_images
     return JsonResponse(
