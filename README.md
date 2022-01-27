@@ -5,6 +5,7 @@
 [![Django](https://img.shields.io/badge/-Django-464646?style=flat-square&logo=Django)](https://www.djangoproject.com/)
 
 ![screenshot](screenshots/site.png)
+[деплой проекта на https://www.pythonanywhere.com](http://toshiharu.pythonanywhere.com/)
 
 ## Описание
 Данная программа информирует о досуговых центрах(ДЦ) в Москве. База ДЦ заполняются администратором ресурса.
