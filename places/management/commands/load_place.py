@@ -1,7 +1,25 @@
+import os
 import requests
 from django.core.management.base import BaseCommand, CommandError
+from django.shortcuts import get_object_or_404
+from urllib.parse import urlparse
+from django.core.files.base import ContentFile
+from pathlib import Path
 
-from places.models import Place
+from places.models import Place, Image
+from where_to_go.settings import MEDIA_ROOT
+
+
+def split_file_name(url):
+    """
+    Функция парсинга имени файла из ссылки
+    :param url: ссылка на скачивание
+    :return: имя файла
+    """
+    parse_url = urlparse(url)
+    path_to_file = parse_url.path
+    file_name = os.path.split(path_to_file)[1]
+    return file_name
 
 
 class Command(BaseCommand):
@@ -25,7 +43,15 @@ class Command(BaseCommand):
                 description_long=response_json['description_long'],
                 lng=float(response_json['coordinates']['lng']),
                 lat=float(response_json['coordinates']['lat']),
-            )
-            print(object_from_json)
+            )[0]
+            for uri in response_json['imgs']:
+                file_name = split_file_name(uri)
+                response = requests.get(uri)
+                response.raise_for_status()
+                image_from_json = Image()
+                image_from_json.image.save(file_name, ContentFile(response.content), save=False)
+                image_from_json.place = object_from_json
+                image_from_json.save()
+            print(object_from_json, object_from_json.id)
         except BaseException as error:
             print(f'Cant get json file from that way- {error}')
