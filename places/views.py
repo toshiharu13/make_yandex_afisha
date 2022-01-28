@@ -1,8 +1,8 @@
 from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render
 from django.urls import reverse
 
 from places.models import Place
-from django.shortcuts import render
 
 
 def index(request):

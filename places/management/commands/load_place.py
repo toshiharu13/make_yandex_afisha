@@ -1,12 +1,13 @@
 import os
+from pathlib import Path
+from urllib.parse import urlparse
+
 import requests
+from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand, CommandError
 from django.shortcuts import get_object_or_404
-from urllib.parse import urlparse
-from django.core.files.base import ContentFile
-from pathlib import Path
 
-from places.models import Place, Image
+from places.models import Image, Place
 from where_to_go.settings import MEDIA_ROOT
 
 
