@@ -22,7 +22,6 @@ class Image(models.Model):
     place = models.ForeignKey(
         Place,
         on_delete=models.CASCADE,
-        null=True,
         related_name='images')
 
     @property
