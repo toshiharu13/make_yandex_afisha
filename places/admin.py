@@ -11,9 +11,7 @@ class ImageEdit(SortableInlineAdminMixin, admin.TabularInline):
 
     def get_preview(self, obj):
         return mark_safe(
-            '<img src="{url}" height=200 />'.format(
-                url=obj.image.url,
-            )
+            '<img src= %s height=200 />' % (obj.image.url)
         )
     extra = 0
 
