@@ -16,7 +16,7 @@ class Place(models.Model):
         ordering = ['pk']
 
 class Image(models.Model):
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=100, blank=True)
     number = models.IntegerField(default=0)
     image = models.ImageField(upload_to='place_images')
     place = models.ForeignKey(
