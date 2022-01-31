@@ -36,10 +36,18 @@ def index(request):
 def places(request, place_id):
     needed_place = get_object_or_404(Place, pk=place_id)
     needed_place_images = [str(image) for image in needed_place.images.all()]
-    needed_place_raw = list(needed_place.values())
-    needed_place_raw[0]['imgs'] = needed_place_images
+    needed_place_raw = {
+        'title': needed_place.title,
+        'imgs': needed_place_images,
+        'description_short': needed_place.description_short,
+        'description_long': needed_place.description_long,
+        'coordinates': {
+            'lat': needed_place.lat,
+            'lng': needed_place.lng,
+        }
+    }
     return JsonResponse(
-        needed_place_raw[0],
+        needed_place_raw,
         safe=False,
         json_dumps_params={'indent': 2, 'ensure_ascii': False})
 
