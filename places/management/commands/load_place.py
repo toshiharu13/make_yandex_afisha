@@ -38,13 +38,13 @@ class Command(BaseCommand):
         response.raise_for_status()
         place_raw = response.json()
         try:
-            object_from_link = Place.objects.get_or_create(
+            object_from_link, object_status = Place.objects.get_or_create(
                 title=place_raw['title'],
                 description_short=place_raw['description_short'],
                 description_long=place_raw['description_long'],
                 lng=float(place_raw['coordinates']['lng']),
                 lat=float(place_raw['coordinates']['lat']),
-            )[0]
+            )
             for uri in place_raw['imgs']:
                 file_name = split_file_name(uri)
                 response = requests.get(uri)
