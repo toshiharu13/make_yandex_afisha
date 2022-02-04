@@ -19,6 +19,7 @@ class ImageEdit(SortableInlineAdminMixin, admin.TabularInline):
 @admin.register(Image)
 class ImageAdmin(SortableAdminMixin, admin.ModelAdmin):
     list_display = ('id', 'title', 'place')
+    raw_id_fields = ('place',)
 
 
 @admin.register(Place)
